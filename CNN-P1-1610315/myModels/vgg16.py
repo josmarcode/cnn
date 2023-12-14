@@ -1,7 +1,5 @@
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.autograd import Variable
+from torch import nn
 import matplotlib.pyplot as plt
 
 
@@ -129,9 +127,6 @@ class VGG16(nn.Module):
         self.actual_corrects = 0
         self.acc = []
 
-        # > Learning decay (useless for now)
-        self.learning_decay = learning_decay
-
         self.epochs_printed = []
 
     def __str__(self) -> str:
@@ -169,7 +164,7 @@ class VGG16(nn.Module):
         for layer in self.conv_layers:
             x = layer(x)
             if show_steps:
-                outputs.append(x)
+                outputs.append(x.cpu())
         
         # Plot images in grid
         if show_steps:
@@ -226,5 +221,6 @@ class VGG16(nn.Module):
 if __name__ == "__main__":
     # Create an instance of the network
     net = VGG16()
-
+    
+    # Show the network architecture
     print(net)

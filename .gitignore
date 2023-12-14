@@ -3,3 +3,8 @@
 
 # Folders
 */data/
+
+# Pycache
+__pycache__/
+
+*.pt
