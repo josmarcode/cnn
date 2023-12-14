@@ -14,7 +14,9 @@ Los modelos ```.pt``` se encuentran en [Google Drive](https://drive.google.com/d
 ## **Resultados**
 Para 20 épocas se tuvo una precisión de 97.45% para el *dataset* de entrenamiento y 65.43% para el *dataset* de test.
 Esto se puede apreciar en la matriz de confusión que se genera al evaluar el modelo con el dataset de test:
+
 <img src="img/conf_matrix_2.png" width="200">
+
 Luego, al visualizar los **mapas característicos** de algunas clases, se pueden concluir algunas cosas:
 - Para la clase de **chimpancé** pareciera fijarse en la cara del animal, especialmente en la forma alargada del acara y la redondez de la nariz.
 - Para la clase de **conejo** se fija en la forma de perfil del cuerpo, circular, con cierta joroba y patas largas hacia adelante. Es por esto que al recibir un camello en la posición de perfil, es posible que lo confunda con un conejo.
@@ -60,6 +62,8 @@ Si ocurre un error interno en el servidor, se obtiene una respuesta con el sigui
 ## **Comentarios**
 
 En un principio se intentó diseñar y entrenar directamente dos modelos, uno basado en la arquitectura VGG16 y otro en ResNet50. Sin embargo, para el caso de **VGG16** se logró entrenar, con un buen desempeño en el entrenamiento, pero en la validación se obtuvo un desempeño muy pobre, como se puede observar en la siguiente gráfica:
+
 <img src="img/conf_matrix_1.jpg" width="200">
+
 Donde se aprecian clases particulares para las cuales en ocasiones, independientemente de la clase que sea la imagen, se predicen como si fuesen de estas clases. Es posible que el modelo no haya podido identificar bien el patrón para estas clases, por lo que las toma como la *solución genérica*.
 Para el caso de la red **ResNet50** no se logró entrenar porque había un problema de dimensiones al momento de hacer la suma residual característica de este modelo. Sin embargo, es un objetivo que no se descarta.
