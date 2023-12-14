@@ -9,12 +9,12 @@
 
 En el presente proyecto se emplea una red pre-entrenada basada en una arquitectura de CNN prediseñada (VGG16) para la clasificación de imágenes del *dataset* de CIFAR-100. Se emplea la técnica de *transfer learning* para adaptar la red a la clasificación de imágenes del dataset. Para esto se usa ```PyTorch``` y ```torchvision```.
 
-Los modelos ```.pt``` se encuentran en ![Google Drive](https://drive.google.com/drive/folders/1Akw6JOk_OLA4ILgL_2ZFBpgv51gwug09?usp=sharing). El modelo empleado es ```vgg16.pt```, el archivo ```vgg16_no_pretrained.pt``` fue un intento de no usar modelos preentrenados. Para ingresar a la carpeta se debe tener acceso con la cuenta de correo institucional de la USB.
+Los modelos ```.pt``` se encuentran en [Google Drive](https://drive.google.com/drive/folders/1Akw6JOk_OLA4ILgL_2ZFBpgv51gwug09?usp=sharing). El modelo empleado es ```vgg16.pt```, el archivo ```vgg16_no_pretrained.pt``` fue un intento de no usar modelos preentrenados. Para ingresar a la carpeta se debe tener acceso con la cuenta de correo institucional de la USB.
 
 ## **Resultados**
 Para 20 épocas se tuvo una precisión de 97.45% para el *dataset* de entrenamiento y 65.43% para el *dataset* de test.
 Esto se puede apreciar en la matriz de confusión que se genera al evaluar el modelo con el dataset de test:
-![confusion matrix](./img/conf_matrix_2.png)
+![confusion matrix](./img/conf_matrix_2.png = 250x250)
 Luego, al visualizar los **mapas característicos** de algunas clases, se pueden concluir algunas cosas:
 - Para la clase de **chimpancé** pareciera fijarse en la cara del animal, especialmente en la forma alargada del acara y la redondez de la nariz.
 - Para la clase de **conejo** se fija en la forma de perfil del cuerpo, circular, con cierta joroba y patas largas hacia adelante. Es por esto que al recibir un camello en la posición de perfil, es posible que lo confunda con un conejo.
@@ -30,14 +30,15 @@ Luego, al visualizar los **mapas característicos** de algunas clases, se pueden
 Para el uso de la API (wip) se debe enviar una petición ```POST``` a la dirección ```(ADDRESS)``` con el siguiente formato:
 ```
 {
-    "image": "base64 encoded image",
+    "image_url": "image_url"
 }
 ```
 ### 200 OK
 Si la petición es exitosa, se obtiene una respuesta con el siguiente formato:
 ```
 {
-    "class": "class_name",
+    "class": "class_id",
+    "class_name": "class_name",
     "confidence": "confidence_value"
 }
 ```
@@ -59,6 +60,6 @@ Si ocurre un error interno en el servidor, se obtiene una respuesta con el sigui
 ## **Comentarios**
 
 En un principio se intentó diseñar y entrenar directamente dos modelos, uno basado en la arquitectura VGG16 y otro en ResNet50. Sin embargo, para el caso de **VGG16** se logró entrenar, con un buen desempeño en el entrenamiento, pero en la validación se obtuvo un desempeño muy pobre, como se puede observar en la siguiente gráfica:
-![confusion matrix](./img/conf_matrix_1.jpg)
+![confusion matrix](./img/conf_matrix_1.jpg =250x250)
 Donde se aprecian clases particulares para las cuales en ocasiones, independientemente de la clase que sea la imagen, se predicen como si fuesen de estas clases. Es posible que el modelo no haya podido identificar bien el patrón para estas clases, por lo que las toma como la *solución genérica*.
 Para el caso de la red **ResNet50** no se logró entrenar porque había un problema de dimensiones al momento de hacer la suma residual característica de este modelo. Sin embargo, es un objetivo que no se descarta.
